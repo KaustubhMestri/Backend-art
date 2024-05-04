@@ -13,13 +13,11 @@ class Admin(models.Model):
     password = models.CharField(max_length=250)
 
 class Product(models.Model):
-    uniqueid = models.CharField(max_length=10)
+    selleremail = models.EmailField()
     productname = models.CharField(max_length=255)
     productdescription = models.TextField()
     productprice = models.IntegerField()
     deliverycharge = models.IntegerField()
-    dealerId = models.CharField(max_length=10)
-    dealerName = models.CharField(max_length=50)
     productImg1 = models.ImageField(upload_to='')
     productImg2 = models.ImageField(upload_to='')
     productImg3 = models.ImageField(upload_to='')

@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from users.models import Users
+from users.models import Users,Product
 from hashlib import sha256
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from users.serializers import ProductSerializers
 
 @csrf_exempt
 def register(request):
@@ -84,3 +84,59 @@ def loginAdmin(request):
         except Exception as e:
             print(e)
             return JsonResponse({'status':'500','message':'Internal Server Error!'})
+        
+        
+@csrf_exempt
+def addProduct(request):
+    if request.method=='POST':
+        name = request.POST.get('name')
+        image1 = request.FILES['image1']
+        image2 = request.FILES['image2']
+        image3 = request.FILES['image3']
+        image4 = request.FILES['image4']
+        price = request.POST.get('price')
+        description = request.POST.get('description')
+        delivery = request.POST.get('delivery')
+        selleremail = request.POST.get('selleremail')
+        print(name,price,description,delivery)
+        try:
+            prod = Product(selleremail=selleremail,productname=name,productdescription=description,productprice=price,deliverycharge=delivery,productImg1=image1,productImg2=image2,productImg3=image3,productImg4=image4)
+            prod.save()
+            return JsonResponse({'status':'200'})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'status':'500'})
+        
+@csrf_exempt   
+def sellerProduct(request):
+    if request.method == 'POST':
+        selleremail = request.POST.get('email')
+        try:
+            prod = Product.objects.filter(selleremail=selleremail)
+            prod_ser = ProductSerializers(prod,many=True)
+            return JsonResponse(prod_ser.data,safe=False)
+        except Exception as e:
+            return JsonResponse({'status':'500'})
+
+@csrf_exempt   
+def allProduct(request):
+    if request.method == 'POST':
+   
+        try:
+            prod = Product.objects.all()
+            prod_ser = ProductSerializers(prod,many=True)
+            return JsonResponse(prod_ser.data,safe=False)
+        except Exception as e:
+            return JsonResponse({'status':'500'})
+        
+@csrf_exempt   
+def searchRandom (request):
+    try : 
+        prod = Product.objects.all().order_by('?')[:1]
+        print(len(prod))
+        prod_ser = ProductSerializers(prod,many=True)
+        return JsonResponse(prod_ser.data,safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({'status':'500'})
+    
