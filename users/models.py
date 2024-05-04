@@ -7,7 +7,7 @@ class Users(models.Model):
     password = models.CharField(max_length=250)
 
 class Admin(models.Model):
-    username = models.CharField(max_length=255)
+    username = models.CharField(max_length=254)
     email = models.EmailField()
     phone = models.CharField(max_length=10)
     password = models.CharField(max_length=250)
@@ -45,17 +45,3 @@ class BookOrders(models.Model):
         deliverycharge = models.IntegerField(default=0)
         totalprice = models.IntegerField()
 
-
-class AddToCart(models.Model):
-    useruid = models.CharField(max_length=255,default='0000')
-    username = models.CharField(max_length=255)
-    product = models.CharField(max_length=255)
-    productimage = models.ImageField(default='abc.jpg')
-    productid = models.CharField(max_length=255)
-
-class WishList(models.Model):
-    useruid = models.CharField(max_length=255,default='0000')
-    username = models.CharField(max_length=255)
-    product = models.CharField(max_length=255)
-    productimage = models.ImageField(default='abc.jpg')
-    productid = models.CharField(max_length=255)

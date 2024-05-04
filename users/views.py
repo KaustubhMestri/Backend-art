@@ -132,11 +132,18 @@ def allProduct(request):
 @csrf_exempt   
 def searchRandom (request):
     try : 
-        prod = Product.objects.all().order_by('?')[:1]
+        prod = Product.objects.all().order_by('?')[:3]
         print(len(prod))
         prod_ser = ProductSerializers(prod,many=True)
         return JsonResponse(prod_ser.data,safe=False)
     except Exception as e:
         print(e)
         return JsonResponse({'status':'500'})
-    
+
+@csrf_exempt 
+def searchitem(request):
+    if request.method=='POST':
+        query = request.POST.get('query')
+        prod = Product.objects.filter(productname__icontains=query)
+        prod_serial = ProductSerializers(prod,many=True)
+        return JsonResponse({'product':prod_serial.data})

@@ -12,5 +12,6 @@ urlpatterns = [
     path('addproduct/',views.addProduct,name='Add'),
     path('sellerprod/',views.sellerProduct,name='seller'),
     path('all/',views.addProduct,name='AllProduct'),
-    path('serchrandom/',views.searchRandom,name='Random')
+    path('serchrandom/',views.searchRandom,name='Random'),
+    path('search/',views.searchitem,name='search')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,7 +37,9 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    
 ]
+CORS_ORIGIN_ALLOW_ALL=True
 
 MEDIA_URL = '/media/'
 # Application definition
@@ -51,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'users'
+    'users',
+    'Product'
 ]
 
 
