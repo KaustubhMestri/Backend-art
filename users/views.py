@@ -147,3 +147,6 @@ def searchitem(request):
         prod = Product.objects.filter(productname__icontains=query)
         prod_serial = ProductSerializers(prod,many=True)
         return JsonResponse({'product':prod_serial.data})
+    
+def addtocart(request):
+    return JsonResponse({'status':'200'})
