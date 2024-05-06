@@ -25,9 +25,8 @@ class Product(models.Model):
 
 
 class BookOrders(models.Model):
-        useruid = models.CharField(max_length=255,default='0000')
-        username = models.CharField(max_length=255)
         useremail = models.EmailField()
+        username = models.CharField(max_length=255)
         userphone = models.CharField(max_length=10)
         state = models.CharField(max_length=50)
         district = models.CharField(max_length=50)
@@ -39,9 +38,7 @@ class BookOrders(models.Model):
         sellername = models.CharField(max_length=255)
         date = models.DateField(auto_now_add=True)
         product = models.CharField(max_length=255)
-        productimage = models.ImageField(default='abc.jpg')
         productid = models.CharField(max_length=255)
         price = models.IntegerField()
         deliverycharge = models.IntegerField(default=0)
-        totalprice = models.IntegerField()
 
