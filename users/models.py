@@ -11,7 +11,7 @@ class Admin(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=10)
     password = models.CharField(max_length=250)
-
+ 
 class Product(models.Model):
     selleremail = models.EmailField()
     productname = models.CharField(max_length=255)
