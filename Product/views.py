@@ -54,7 +54,7 @@ def bookorder(request):
         username = cust.username
         userphone=request.POST.get('userphone')#input
         state = request.POST.get('state')#input
-        district = request.POST.get('district')#input
+        district = request.PsOST.get('district')#input
         taluka = request.POST.get('taluka')#input
         city = request.POST.get('city')#input
         landmark = request.POST.get('landmark')
