@@ -48,38 +48,38 @@ def category_search(request):
 def bookorder(request):
     if request.method=='POST':
         useremail = request.POST.get('useruid') #customer email from cookie
-
+        print(useremail)
         cust = Users.objects.get(email=useremail)
 
         username = cust.username
         userphone=request.POST.get('userphone')#input
         state = request.POST.get('state')#input
-        district = request.PsOST.get('district')#input
+        district = request.POST.get('district')#input
         taluka = request.POST.get('taluka')#input
         city = request.POST.get('city')#input
         landmark = request.POST.get('landmark')
         pincode = request.POST.get('pincode')#input
-
-        productid=request.POST.get('productid') #input each model has invisible id column return that
-
-        prod = Product.objects.get(id =productid)  
-
-        sellerid = prod.selleremail
-
-        selid = Admin.objects.get(email=sellerid)
-        sellername = selid.username
-        product = request.POST.get('product')
-    
-
-        try:
-            bookorder = BookOrders(useremail=useremail,username=username,userphone=userphone,state=state,district=district,taluka=taluka,city=city,landmark=landmark,pincode=pincode,sellerid=sellerid,sellername=sellername,product=product,productid=productid,price=prod.price,deliverycharge=prod.deliverycharge)
-            bookorder.save()
-
-            add =AddToCart.objects.get(useruid=useremail)
-            add.delete()
-            return JsonResponse({'status':'200','message':'Order Booked Successful'})
-        except Exception as e:
-            print(e)
+        print(useremail,state,district,taluka,city,pincode,userphone)
+        add = AddToCart.objects.filter(useruid=useremail)
+        for x in add:
+            productid=x.productid
+            prod = Product.objects.get(id =productid)  
+            sellerid = prod.selleremail
+            print('sellerid',sellerid)
+            # selid = Admin.objects.get(email=sellerid,)
+            sellername =sellerid
+            product = prod.productname
+            print(productid,sellerid,sellername,product)
+            print('userphone',userphone)
+            try:
+                bookorder = BookOrders(useremail=useremail,username=username,userphone=userphone,state=state,district=district,taluka=taluka,city=city,landmark=landmark,pincode=pincode,sellerid=sellerid,sellername=sellername,product=product,productid=productid,price=prod.productprice,deliverycharge=prod.deliverycharge)
+                bookorder.save()
+                
+                add =AddToCart.objects.filter(useruid=useremail)
+                add.delete()
+                return JsonResponse({'status':'200','message':'Order Booked Successful'})
+            except Exception as e:
+                print(e)
 
 
   
