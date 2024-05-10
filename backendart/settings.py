@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'users',
-    'Product'
+    'Product',
+    'payment'
 ]
 
 

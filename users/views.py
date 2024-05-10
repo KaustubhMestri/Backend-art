@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from users.models import Users,Product
+from users.models import Users,Product,BookOrders
 from hashlib import sha256
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from users.serializers import ProductSerializers
+from users.serializers import ProductSerializers,BookSerializers
 
 @csrf_exempt
 def register(request):
@@ -147,3 +147,10 @@ def searchitem(request):
         prod = Product.objects.filter(productname__icontains=query)
         prod_serial = ProductSerializers(prod,many=True)
         return JsonResponse({'product':prod_serial.data})
+
+@csrf_exempt
+def yourorders(request):
+    id = request.POST.get('id')
+    orders = BookOrders.objects.filter(useremail=id)
+    ose = BookSerializers(orders,many=True)
+    return JsonResponse({'orders':ose.data})

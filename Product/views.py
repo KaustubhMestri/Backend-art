@@ -77,6 +77,7 @@ def bookorder(request):
                 
                 add =AddToCart.objects.filter(useruid=useremail)
                 add.delete()
+                print('order booked')
                 return JsonResponse({'status':'200','message':'Order Booked Successful'})
             except Exception as e:
                 print(e)
